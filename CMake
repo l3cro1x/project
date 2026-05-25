@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(delivery_sim)
+
+find_package(catkin REQUIRED COMPONENTS
+  geometry_msgs
+  rospy
+  std_msgs
+  turtlesim
+  message_generation
+)
+
+# Говорим ROS, что у нас есть сервис
+add_service_files(
+  FILES
+  Order.srv
+)
+
+# Включаем генерацию сообщений и сервисов
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs
+  std_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS geometry_msgs rospy std_msgs turtlesim message_runtime
+)
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
