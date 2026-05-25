@@ -9,13 +9,11 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-# Говорим ROS, что у нас есть сервис
 add_service_files(
   FILES
   Order.srv
 )
 
-# Включаем генерацию сообщений и сервисов
 generate_messages(
   DEPENDENCIES
   geometry_msgs
