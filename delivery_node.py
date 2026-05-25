@@ -1,4 +1,3 @@
-cat << 'EOF' > scripts/delivery_node.py
 #!/usr/bin/env python3
 import rospy
 import math
@@ -18,7 +17,7 @@ class DeliveryRobot:
         self.cmd_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
         
         self.srv = rospy.Service('order_pizza', Order, self.handle_delivery_request)
-        rospy.loginfo("Курьер готов принимать заказы через сервис 'order_pizza'!")
+        rospy.loginfo("ourier is ready to take orders via 'order_pizza' service!")
 
     def pose_callback(self, msg):
         self.current_x = msg.x
@@ -28,7 +27,7 @@ class DeliveryRobot:
     def handle_delivery_request(self, req):
         rospy.loginfo(f"Получен заказ на точку: X={req.x}, Y={req.y}")
         if not (0 <= req.x <= 11 and 0 <= req.y <= 11):
-            return OrderResponse(success=False, message="Точка доставки вне зоны обслуживания!")
+            return OrderResponse(success=False, message="Out of bounds!")
 
         rate = rospy.Rate(10)
         move_cmd = Twist()
@@ -57,7 +56,7 @@ class DeliveryRobot:
         move_cmd.angular.z = 0.0
         self.cmd_pub.publish(move_cmd)
 
-        return OrderResponse(success=True, message="Пицца успешно доставлена!")
+        return OrderResponse(success=True, message="Pizza is successfully delivered!")
 
 if __name__ == '__main__':
     try:
